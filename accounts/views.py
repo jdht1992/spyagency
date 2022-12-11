@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 
 from accounts.forms import HitModelForm, HitUpdateModelForm
-from accounts.models import Hit, CustomUser
+from accounts.models import Hit, CustomUser, BOSS
 from accounts.permissions import HitCreationsPermissionsMixin
 
 
@@ -36,11 +37,14 @@ class HitListView(ListView):
     context_object_name = 'hits'
 
     def get_queryset(self):
-        kind = self.request.user.kind
-        if kind=="hitman":
-            queryset = Hit.objects.filter(hitman=self.request.user)
-        else:
+        user = self.request.user
+
+        if user.is_boss():
             queryset = Hit.objects.all()
+        elif user.is_manager():
+            queryset = Hit.objects.filter(Q(hitman__in=user.lackeys.all()) | Q(hitman=user))
+        else:
+            queryset = Hit.objects.filter(hitman=user)
 
         return queryset
 
