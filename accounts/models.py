@@ -46,3 +46,6 @@ class Hit(models.Model):
         default='OPEN',
     )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="hits_author", related_query_name='hit_author', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.target_name
