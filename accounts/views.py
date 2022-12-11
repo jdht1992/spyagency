@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, CreateView, ListView, DetailView,
 
 from accounts.forms import HitModelForm, HitUpdateModelForm
 from accounts.models import Hit, CustomUser, BOSS
-from accounts.permissions import HitCreationsPermissionsMixin
+from accounts.permissions import HitCreationsPermissionsMixin, HitMenListPermissionsMixin
 
 
 class HomePageView(TemplateView):
@@ -71,7 +71,17 @@ class HitmanDetailView(DetailView):
         return get_object_or_404(CustomUser, id=self.kwargs.get("id"))
 
 
-class HitmanListView(ListView):
-    model = Hit
+class HitmanListView(HitMenListPermissionsMixin, ListView):
+    model = CustomUser
     template_name = 'hitman/list-hitman.html'
     context_object_name = 'men'
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.is_boss():
+            queryset = CustomUser.objects.all()
+        elif user.is_manager():
+            queryset = user.lackeys.all()
+
+        return queryset
