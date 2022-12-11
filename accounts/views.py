@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView
 
 from accounts.forms import HitModelForm
-from accounts.models import Hit
+from accounts.models import Hit, CustomUser
 
 
 class HomePageView(TemplateView):
@@ -41,3 +42,25 @@ class HitListView(ListView):
             queryset = Hit.objects.all()
 
         return queryset
+
+
+class HitDetailView(DetailView):
+    template_name = 'hit/detail-hit.html'
+    context_object_name = 'hit'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Hit, pk=self.kwargs['pk'])
+
+
+class HitmanDetailView(DetailView):
+    template_name = 'hitman/list-hitman.html'
+    context_object_name = 'hitman'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(CustomUser, id=self.kwargs.get("id"))
+
+
+class HitmanListView(ListView):
+    model = Hit
+    template_name = 'hitman/list-hitman.html'
+    context_object_name = 'men'
