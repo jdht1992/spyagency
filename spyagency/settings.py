@@ -55,7 +55,7 @@ ROOT_URLCONF = 'spyagency.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,3 +134,5 @@ ALLOWED_HOST = ("localhost", )
 
 AUTH_USER_MODEL = "accounts.CustomUser"  # new
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home' # new
