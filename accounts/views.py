@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 
 from accounts.forms import HitModelForm
 from accounts.models import Hit
@@ -27,3 +27,17 @@ class HitCreateView(LoginRequiredMixin, CreateView):
         hit.save()
         return super(HitCreateView, self).form_valid(form)
 
+
+class HitListView(ListView):
+    model = Hit
+    template_name = 'hit/list-hit.html'
+    context_object_name = 'hits'
+
+    def get_queryset(self):
+        kind = self.request.user.kind
+        if kind=="hitman":
+            queryset = Hit.objects.filter(hitman=self.request.user)
+        else:
+            queryset = Hit.objects.all()
+
+        return queryset
