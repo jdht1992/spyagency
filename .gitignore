@@ -1,0 +1,29 @@
+### Jetbrains IDE
+.idea/
+.vscode/
+
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+### Environments
+*.env
+
+### File for deploy with Nginx
+*.conf
+*.ini
+uwsgi_params
+
+### Folder for collectstatic
+staticfiles/
+
+### File media
+media/
+
+virtualenv/
+
+data/
+
+.python-version

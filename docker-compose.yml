@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=spy
+      - POSTGRES_USER=spy
+      - POSTGRES_PASSWORD=spy
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=spy
+      - POSTGRES_USER=spy
+      - POSTGRES_PASSWORD=spy
+    depends_on:
+      - db
