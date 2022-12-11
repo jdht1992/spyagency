@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% block title %}Update hit{% endblock %}
+{% block content %}
+    <h1>Update hit</h1>
+    <form id="update-hit" action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <a href="{% url 'list_hit' %}">Back</a>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('#update-hit').on('submit', function () {
+            $('input, select').prop('disabled', false)
+        })
+    </script>
+{% endblock %}
