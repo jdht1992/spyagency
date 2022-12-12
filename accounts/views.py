@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 
-from accounts.forms import HitModelForm, HitUpdateModelForm
+from accounts.forms import HitModelForm, HitUpdateModelForm, CustomUserModelForm
 from accounts.models import Hit, CustomUser, BOSS
 from accounts.permissions import HitCreationsPermissionsMixin, HitMenListPermissionsMixin
 
@@ -63,12 +63,21 @@ class HitUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('update_hit', kwargs={'pk': self.object.id})
 
 
-class HitmanDetailView(DetailView):
-    template_name = 'hitman/list-hitman.html'
-    context_object_name = 'hitman'
+class HitmanDetailView(UpdateView):
+    model = CustomUser
+    template_name = 'hitman/detail-hitman.html'
+    form_class = CustomUserModelForm
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(CustomUser, id=self.kwargs.get("id"))
+    def get_object(self):
+        return CustomUser.objects.get(id=self.kwargs.get('id'))
+
+    def get_form_kwargs(self):
+        kwargs = super(HitmanDetailView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('detail_hitman', kwargs={'id': self.object.id})
 
 
 class HitmanListView(HitMenListPermissionsMixin, ListView):

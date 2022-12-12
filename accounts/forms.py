@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.forms import ModelForm, Select
+from django.forms import ModelForm, Select, CharField, BooleanField, CheckboxInput
 
 from accounts.models import CustomUser, Hit, ASSIGNED, FAILED, COMPLETED
 
@@ -79,3 +79,29 @@ class HitUpdateModelForm(ModelForm):
     class Meta:
         model = Hit
         fields = ("hitman", "description", "target_name", "status",)
+
+
+class CustomUserModelForm(ModelForm):
+    first_name = CharField(label="Name")
+    is_active = BooleanField(help_text="", required=False)
+    all_fields = ["first_name", "email", "description", "is_active"]
+    boos_fields = ["first_name", "email", "description"]
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(CustomUserModelForm, self).__init__(*args, **kwargs)
+        user = self.request.user
+
+        readonly_fields = self.all_fields
+        if user.is_boss() and self.instance.is_active:
+            readonly_fields = self.boos_fields
+
+        for key in readonly_fields:
+            if isinstance(self.fields[f'{key}'].widget, CheckboxInput):
+                self.fields[f'{key}'].widget.attrs['disabled'] = True
+            else:
+                self.fields[f'{key}'].widget.attrs['readonly'] = True
+
+    class Meta:
+        model = CustomUser
+        fields = ("first_name", "email", "description", "is_active")
