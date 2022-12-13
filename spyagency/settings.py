@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party
+    'crispy_forms', # new
     "accounts",  # new
+
 ]
 
 MIDDLEWARE = [
@@ -134,5 +137,5 @@ ALLOWED_HOST = ("localhost", )
 
 AUTH_USER_MODEL = "accounts.CustomUser"  # new
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home' # new
+LOGIN_REDIRECT_URL = 'list_hit'
+LOGOUT_REDIRECT_URL = 'login'

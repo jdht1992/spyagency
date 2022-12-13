@@ -1,19 +1,13 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm, Select, CharField, BooleanField, CheckboxInput
+from accounts.models import CustomUser, Hit, FAILED, COMPLETED
 
-from accounts.models import CustomUser, Hit, ASSIGNED, FAILED, COMPLETED
 
-
-# class CustomUserCreationForm(UserCreationForm):
-#     class Meta(UserCreationForm):
-#         model = CustomUser
-#         fields = UserCreationForm.Meta.fields
-#
-#
-# class CustomUserChangeForm(UserChangeForm):
-#     class Meta:
-#         model = CustomUser
-#         fields = UserChangeForm.Meta.fields
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email',)
 
 
 class HitModelForm(ModelForm):
@@ -71,6 +65,25 @@ class HitUpdateModelForm(ModelForm):
                 readonly_fields = self.list_hitman
 
         for key in readonly_fields:
+            if isinstance(self.fields[f'{key}'].widget, Select):
+                self.fields[f'{key}'].widget.attrs['disabled'] = True
+            else:
+                self.fields[f'{key}'].widget.attrs['readonly'] = True
+
+    class Meta:
+        model = Hit
+        fields = ("hitman", "description", "target_name", "status",)
+
+
+class UpdateHitBulkModelForm(ModelForm):
+    list_hitman_manager = ["description", "target_name", "status"]
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateHitBulkModelForm, self).__init__(*args, **kwargs)
+
+        self.fields['hitman'].queryset = CustomUser.objects.filter(is_active=True).exclude(email='jdht1992@gmail.com')
+
+        for key in self.list_hitman_manager:
             if isinstance(self.fields[f'{key}'].widget, Select):
                 self.fields[f'{key}'].widget.attrs['disabled'] = True
             else:

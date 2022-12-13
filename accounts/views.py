@@ -1,16 +1,25 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
+from django.forms import modelformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 
-from accounts.forms import HitModelForm, HitUpdateModelForm, CustomUserModelForm
-from accounts.models import Hit, CustomUser, BOSS
+from accounts.forms import (HitModelForm, HitUpdateModelForm, CustomUserModelForm, CustomUserCreationForm,
+                            UpdateHitBulkModelForm)
+from accounts.models import Hit, CustomUser
 from accounts.permissions import HitCreationsPermissionsMixin, HitMenListPermissionsMixin
 
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
+
+
+class SignupPageView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/signup.html'
 
 
 class HitCreateView(HitCreationsPermissionsMixin, LoginRequiredMixin, CreateView):
@@ -31,7 +40,7 @@ class HitCreateView(HitCreationsPermissionsMixin, LoginRequiredMixin, CreateView
         return super(HitCreateView, self).form_valid(form)
 
 
-class HitListView(ListView):
+class HitListView(LoginRequiredMixin, ListView):
     model = Hit
     template_name = 'hit/list-hit.html'
     context_object_name = 'hits'
@@ -62,8 +71,30 @@ class HitUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('update_hit', kwargs={'pk': self.object.id})
 
+def post_hitlbul(request):
+    hitbulkFormSet = modelformset_factory(Hit, form=UpdateHitBulkModelForm, extra=3)
+    if request.method == 'POST':
 
-class HitmanDetailView(UpdateView):
+        formset = hitbulkFormSet(request.POST, queryset=Hit.objects.none(), form_kwargs={'logged_user': request.user})
+
+        if formset.is_valid():
+            for form in formset.cleaned_data:
+                hitman = form['hitman']
+                description = form['description']
+                target_name = form['target_name']
+                status = form['status']
+                hit = Hit(hitman=hitman, description=description, target_name=target_name, status=status)
+                hit.save()
+                # messages.success(request, "Posted!")
+            return HttpResponseRedirect("/")
+        else:
+            print(formset.errors)
+    else:
+        formset = hitbulkFormSet(queryset=Hit.objects.all())
+    return render(request, 'hit/update-hit-bulk.html', {'formset': formset})
+
+
+class HitmanDetailView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'hitman/detail-hitman.html'
     form_class = CustomUserModelForm
@@ -80,7 +111,7 @@ class HitmanDetailView(UpdateView):
         return reverse_lazy('detail_hitman', kwargs={'id': self.object.id})
 
 
-class HitmanListView(HitMenListPermissionsMixin, ListView):
+class HitmanListView(HitMenListPermissionsMixin, LoginRequiredMixin, ListView):
     model = CustomUser
     template_name = 'hitman/list-hitman.html'
     context_object_name = 'men'
