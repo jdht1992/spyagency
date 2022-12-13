@@ -9,6 +9,7 @@ class HitCreationsPermissionsMixin:
             return HttpResponseForbidden()
         return super().dispatch(request, * args, ** kwargs)
 
+
 class HitMenListPermissionsMixin:
 
     def dispatch(self, request, *args, **kwargs):

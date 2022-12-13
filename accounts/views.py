@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
@@ -35,6 +36,8 @@ class HitCreateView(HitCreationsPermissionsMixin, LoginRequiredMixin, CreateView
 
     def form_valid(self, form):
         hit = form.save(commit=False)
+        if hit.hitman:
+            hit.status = Hit.Status.ASSIGNED
         hit.author = self.request.user
         hit.save()
         return super(HitCreateView, self).form_valid(form)
@@ -58,10 +61,11 @@ class HitListView(LoginRequiredMixin, ListView):
         return queryset
 
 
-class HitUpdateView(LoginRequiredMixin, UpdateView):
+class HitUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Hit
     template_name = 'hit/update-hit.html'
     form_class = HitUpdateModelForm
+    success_message = " was update successfully"
 
     def get_form_kwargs(self):
         kwargs = super(HitUpdateView, self).get_form_kwargs()
@@ -71,11 +75,21 @@ class HitUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('update_hit', kwargs={'pk': self.object.id})
 
+    def form_valid(self, form):
+        hit = form.save(commit=False)
+        if hit.hitman and hit.status == hit.Status.OPEN:
+            hit.status = Hit.Status.ASSIGNED
+        elif not hit.hitman:
+            hit.status = Hit.Status.OPEN
+        hit.save()
+        return super(HitUpdateView, self).form_valid(form)
+    #
+
 def post_hitlbul(request):
     hitbulkFormSet = modelformset_factory(Hit, form=UpdateHitBulkModelForm, extra=3)
     if request.method == 'POST':
 
-        formset = hitbulkFormSet(request.POST, queryset=Hit.objects.none(), form_kwargs={'logged_user': request.user})
+        formset = hitbulkFormSet(request.POST, queryset=Hit.objects.none())
 
         if formset.is_valid():
             for form in formset.cleaned_data:
@@ -94,10 +108,11 @@ def post_hitlbul(request):
     return render(request, 'hit/update-hit-bulk.html', {'formset': formset})
 
 
-class HitmanDetailView(LoginRequiredMixin, UpdateView):
+class HitmanDetailView(HitMenListPermissionsMixin, SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = CustomUser
     template_name = 'hitman/detail-hitman.html'
     form_class = CustomUserModelForm
+    success_message = " was update successfully"
 
     def get_object(self):
         return CustomUser.objects.get(id=self.kwargs.get('id'))

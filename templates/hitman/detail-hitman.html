@@ -1,8 +1,15 @@
 {% extends '_base.html' %}
-{% block title %}Update hit{% endblock %}
+{% block title %}Update hitmen{% endblock %}
 {% block content %}
-    <h1>Update hit</h1>
-    <form id="update-hit" action="" method="POST">{% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+        {% endfor %}
+    {% endif %}
+    <h1>Update hitmen</h1>
+    <form id="update-hitmen" action="" method="POST">{% csrf_token %}
         {{ form.as_p }}
         <ul>
             {% for lackey in customuser.lackeys.all %}
@@ -10,13 +17,17 @@
             {% endfor %}
         </ul>
         <a href="{% url 'list_hit' %}">Back</a>
-        <input type="submit" value="Save">
+        {% if customuser.is_active %}
+            <input type="submit" value="Save">
+        {% else %}
+            <input type="submit" value="Save" disabled>
+        {% endif %}
     </form>
 {% endblock %}
 
 {% block js %}
     <script>
-        $('#update-hit').on('submit', function () {
+        $('#update-hitmen').on('submit', function () {
             $('input, select').prop('disabled', false)
         })
     </script>

@@ -1,0 +1,274 @@
+[
+  {
+    "model": "accounts.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$eoC8sZk9fDp1QfgXbDCF1l$Kur7knSyXlxdlpnniME7zDFhFoFfbzlpL3OQo9dXOfk=",
+      "last_login": "2022-12-13T03:31:56.312Z",
+      "is_superuser": true,
+      "first_name": "boss",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:19:37.113Z",
+      "kind": "boss",
+      "description": "",
+      "email": "boss@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$WoRmSfvnfpAQLuhlJI3HED$lDaAfXiWzh3HSSl94aq5sesvQxes84B5mAhotYGtrXU=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "manager10",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:24:28Z",
+      "kind": "hitmen",
+      "description": "manager10",
+      "email": "manager10@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": [
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$w2qQmz4XpzIwJGudOIrJ2X$emIgsQJYNrQVd8p/flcyf95Nd6tQbHe4tA8WExRz4BQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen11",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:25:05Z",
+      "kind": "hitmen",
+      "description": "hitmen11",
+      "email": "hitmen11@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$dPdgZ5LG5FSHPvwA45Pa1M$xDmIAAy74TOMzowpTFnokUBamhuFDkIBp+RKdn7LAyo=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen12",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:25:31Z",
+      "kind": "hitmen",
+      "description": "hitmen12",
+      "email": "hitmen12@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$F9NDEnsUZz1Ni9gbq1PjrX$kNTKS+B0kJ0wkM6TsGKPBv0JrLLvCuexRELkiIBv49w=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen13",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:25:53Z",
+      "kind": "hitmen",
+      "description": "hitmen13",
+      "email": "hitmen13@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$ZtjfoDixli3pI6TDGtaowT$2W/ueQzFyoAwXd9Oy5mf/Gx7nrA4sj8xmb5csUWFXO0=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "manager20",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:26:22Z",
+      "kind": "hitmen",
+      "description": "manager21",
+      "email": "manager20@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": [
+        8,
+        9,
+        7
+      ]
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$FJ3Otf8rEmZ6ZhdQWtWHO4$4zk/Tst/NQtcTkfHxEnn8WluqQBsf/JwPKeXywh6w00=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen21",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:26:51Z",
+      "kind": "hitmen",
+      "description": "hitmen21",
+      "email": "hitmen21@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$um2pPTfvAWIrh6bAuVumDk$En8+x9BIk+epWwHLlcPZA5MQU3GxbikbvOlU+CCi6PU=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen22",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:27:10Z",
+      "kind": "hitmen",
+      "description": "hitmen22",
+      "email": "hitmen22@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$Ri6ZzXED62Yo6UPJ8rcnz1$J2yVhiwlj2F8baRzwCthT5yJp/8j0PhmfZ2PYkTMj18=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen23",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:27:33Z",
+      "kind": "hitmen",
+      "description": "hitmen23",
+      "email": "hitmen23@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$z6uiV3a7yxyzTFPNFrG0ch$VV4IEHTE/88E/UobmTzd50/ZbEBDf30jMpmRLc0fLik=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "manager30",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:28:00Z",
+      "kind": "hitmen",
+      "description": "manager30",
+      "email": "manager30@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": [
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$gKWYhTrAW5X7wm6ravT9dC$X7mLpG1Kp4LVSA5Ei+pF6/eTWKMTVSRIfulUDwf4wjA=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen31",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:28:22Z",
+      "kind": "hitmen",
+      "description": "hitmen31",
+      "email": "hitmen31@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$aoXNIXKv6lsRsq64DFM71Z$XgOaR4yCiBUiU00FoUGl3ZzTrawBpS0SSEAHf7HjgEM=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen32",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:29:06Z",
+      "kind": "hitmen",
+      "description": "manager32",
+      "email": "hitmen32@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  },
+  {
+    "model": "accounts.customuser",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$EbvU3k4zrAJCGYZG7SJ5cI$7lraAepEuW7K7vjsQNR47BljILxHy1QjHI5xHYRp8cM=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "hitmen33",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-13T03:29:29Z",
+      "kind": "hitmen",
+      "description": "manager33",
+      "email": "hitmen33@gmail.com",
+      "groups": [],
+      "user_permissions": [],
+      "lackeys": []
+    }
+  }
+]

@@ -4,6 +4,6 @@
     <h1>List hit</h1>
     <a href="{%url 'create_hit'%}">Create</a><br>
     {%for hit in hits%}
-        {{ hit.id }} - {{ hit.description }}<br>
+        {{ hit.id }} - {{ hit.description }} - {{ hit.status }} - {{ hit.target_name }}<br>
     {%endfor%}
 {%endblock%}

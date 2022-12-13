@@ -4,6 +4,6 @@
     <h1>List men</h1>
     <a href="{%url 'create_hit'%}">Create</a><br>
     {%for man in men%}
-    {{ man.id }} - {{ man.firstname }}- {{ man.description }} - {{ man.email }}<br>
+    {{ man.id }} - {{ man.firstname }}- {{ man.description }} - {{ man.email }} - {{ man.kind }} - {{ man.is_active }}<br>
 {%endfor%}
 {%endblock%}

@@ -22,7 +22,7 @@ Clonar el proyecto
 git clone https://github.com/jdht1992/spyagency.git
 ```
 
-Dentro del folder de guros ejecutar el comando docker-compose up
+Dentro del folder de spyagency ejecutar los comandos
 ```sh
 cd spyagency
 docker-compose up --build .
@@ -36,7 +36,10 @@ docker-compose exec web bash
 python manage.py makemigrations
 python manage.py migrate
 ```
-
+Para cargar los usuarios base se ejecuta el siguiente comando
+```sh
+python manage.py loaddata fixtures/users.json
+```
 
 ## Rutas del proyecto
 ### Acoounts
