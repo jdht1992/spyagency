@@ -22,15 +22,15 @@ Clonar el proyecto
 git clone https://github.com/jdht1992/spyagency.git
 ```
 
-Dentro del folder de spyagency ejecutar los comandos
+Para crear la imagen ejecutas los siguientes comandos
 ```sh
 cd spyagency
-docker-compose up --build .
+docker-compose up --build
 ```
 
 ### Ejecutar proyecto.
 
-Para ejecutar las migraciones, abrir otra terminal y entrar al contenedor y ejecutar los comandos el comando.
+Para ejecutar las migraciones, abrir otra terminal y entrar al contenedor y ejecutar los siguientes comandos.
 ```sh
 docker-compose exec web bash 
 python manage.py makemigrations
@@ -43,6 +43,26 @@ python manage.py loaddata fixtures/users.json
 
 ## Rutas del proyecto
 ### Acoounts
+
+Los usuarios cargados para hacer pruebas son
+```sh
+"usuarios"
+boss@gmail.com
+manager10@gmail.com
+hitmen11@gmail.com
+hitmen12@gmail.com
+hitmen13@gmail.com
+manager20@gmail.com
+hitmen21@gmail.com
+hitmen22@gmail.com
+hitmen23@gmail.com
+manager30@gmail.com
+hitmen31@gmail.com
+hitmen32@gmail.com
+hitmen33@gmail.com
+"contraseña"
+1234
+```
 
 Ingreso basado en el correo.
 ```sh
@@ -65,7 +85,7 @@ Crea un hit
 ```sh
  localhost:8000/hits/create/
 ```
-Actualiza los hits de forma masiva
+Actualiza los hits de forma masiva ("no terminado quedo a la mitad")
 ```sh
  localhost:8000/hits/bulk/
 ```

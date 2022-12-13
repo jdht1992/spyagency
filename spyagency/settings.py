@@ -84,7 +84,7 @@ DATABASES = {
         'USER': 'spy',
         'PASSWORD': 'spy',
         'HOST': 'db',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
